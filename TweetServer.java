@@ -34,7 +34,7 @@ class TweetServer {
     return true;
   }
 
-  boolean quoteTweet(String tweetId, String content, String username) {
+  boolean quoteTweet(String username, String tweetId, String content, DateTime dt) {
     return true;
   }
 

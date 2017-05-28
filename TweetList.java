@@ -1,12 +1,12 @@
 interface TweetList {
   TweetList filter(IQuery q);
+  ATweet tweet;
   int count(IQuery q);
   String toHTML();
   int length();
 }
 
 class TLLink implements TweetList{
-  ATweet tweet;
   TweetList rest;
   TLLink(ATweet tweet, TweetList rest){
     this.tweet = tweet;
@@ -37,7 +37,6 @@ class TLLink implements TweetList{
 }
 
 class TLEmpty implements TweetList{
-  ATweet tweet;
   TLEmpty(){
   }
   public TweetList filter(IQuery q){

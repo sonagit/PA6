@@ -104,8 +104,8 @@ class SampleTweets{
    QuoteTweet quoteTweet3 = new QuoteTweet(bunny, new DateTime(1,4,2016),"!","8819471987600855040-rt-rt-rt",quoteTweet2,10000000);
    ImageTweet imageTweet11= new ImageTweet(bunny, new DateTime(16,4,2006),"I love bunny!","8819471987600855039","https://s-media-cache-ak0.pinimg.com/736x/0a/8b/91/0a8b91f0bfbbcbc65fb7d43cd9ff4c78.jpg",1);
 
-   QuoteTweet quoteTweet4 = new QuoteTweet(bunny, new DateTime(23,3,2007),"Q: What is a bunny's motto? A: Don't be mad, be hoppy! Read more at: http://www.ducksters.com/jokes/rabbit.php This text is Copyright © Ducksters.","8819471987600855039-rt",imageTweet11,1);
-   QuoteTweet quoteTweet5 = new QuoteTweet(bunny, new DateTime(23,4,2008),"Q: How do you know carrots are good for your eyes? A: Because you never see rabbits wearing glasses! Read more at: http://www.ducksters.com/jokes/rabbit.php This text is Copyright © Ducksters.","8819471987600855039-rt-rt",quoteTweet4,1);
+   QuoteTweet quoteTweet4 = new QuoteTweet(bunny, new DateTime(23,3,2007),"Q: What is a bunny's motto? A: Don't be mad, be hoppy! Read more at: http://www.ducksters.com/jokes/rabbit.php This text is Copyright (c) Ducksters.","8819471987600855039-rt",imageTweet11,1);
+   QuoteTweet quoteTweet5 = new QuoteTweet(bunny, new DateTime(23,4,2008),"Q: How do you know carrots are good for your eyes? A: Because you never see rabbits wearing glasses! Read more at: http://www.ducksters.com/jokes/rabbit.php This text is Copyright (c) Ducksters.","8819471987600855039-rt-rt",quoteTweet4,1);
    QuoteTweet quoteTweet6 = new QuoteTweet(bunny, new DateTime(23,5,2009),"Fibonacci started with a pair of fictional and slightly unbelievable baby rabbits, a baby boy rabbit and a baby girl rabbit.","8819471987600855039-rt-rt-rt",quoteTweet5,2);
    QuoteTweet quoteTweet7 = new QuoteTweet(bunny, new DateTime(23,6,2009),"They were fully grown after one month","8819471987600855039-rt-rt-rt-rt",quoteTweet6,3);
    QuoteTweet quoteTweet8 = new QuoteTweet(bunny, new DateTime(23,7,2009),"and did what rabbits do best, so that the next month two more baby rabbits (again a boy and a girl) were born","8819471987600855039-rt-rt-rt-rt-rt",quoteTweet7,5);

@@ -14,6 +14,24 @@ class AndQuery implements IQuery {
   public boolean matches(ATweet atweet) {
     return this.q1.matches(atweet) && this.q2.matches(atweet);
   }
+  
+  /**
+   * Add new query to chain of AndQuerys
+   *
+   * @param IQuery newQuery
+   * @return AndQuery
+   */
+  public AndQuery addQuery(IQuery newQuery) {
+    if(this.q1 == null && this.q2 == null) {
+      return new AndQuery(newQuery, null);
+    }
+    else if(this.q2 == null) {
+      return new AndQuery(newQuery, this.q1);
+    }
+    else {
+      return new AndQuery(newQuery, this);
+    }
+  }
 }
 
 class AllQuery implements IQuery {

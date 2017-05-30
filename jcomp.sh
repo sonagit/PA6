@@ -6,7 +6,7 @@ javac -cp .:tester.jar *.java
 
 # Run TestTweetServer if test is passed
 if [ "$1" == "test" ]; then
-  java -cp $LIB/public/tester.jar:. tester.Main TestTweetServer
+  java -cp .:tester.jar tester.Main TestTweetServer
 fi
 
 # Run TweetServerMain if server is passed

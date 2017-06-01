@@ -2,7 +2,7 @@
  * A class for creating a tweet server
  */
 class TweetServer {
- 
+
   // Fields
   TweetList tweets;
   User[] users;
@@ -11,7 +11,7 @@ class TweetServer {
   // The beginning and end of any HTML output
   String htmlStart = "<html>\n<head>\n<meta charset='utf8'>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"tweetstyle.css\">\n</head>\n<body> ";
   String htmlEnd = "</body>\n</html>";
-  
+
   /**
    * A constructor for TweetServer that initializes the fields
    */
@@ -36,7 +36,7 @@ class TweetServer {
     else {
       // create new user from username/fullname
       User newUser = new User(username, fullname);
-      
+
       // add to users array
       User[] temp = new User[users.length + 1];
       for(int i = 0; i < users.length; i += 1) {
@@ -47,7 +47,7 @@ class TweetServer {
       return true;
     }
   }
-  
+
   /**
    * Returns false if a user with the given username does not exist, to
    * indicate no new tweets were added.
@@ -70,10 +70,10 @@ class TweetServer {
    * @return boolean
    */
   boolean addTextTweet(String username, String content, DateTime dt) {
-    
+
     // no user? return false
     if(!userExists(username)) { return false; }
-    
+
     // user exists
     else {
       // get a tweet with correct user
@@ -87,7 +87,7 @@ class TweetServer {
       return true;
     }
   }
-  
+
   /**
    * Behaves the same way as addTextTweet, but create an ImageTweet instead of a TextTweet.
    *
@@ -98,10 +98,10 @@ class TweetServer {
    * @return boolean
    */
   boolean addImageTweet(String username, String content, String imageURL, int imageKB, DateTime dt) {
-    
+
     // no user? return false
     if(!userExists(username)) { return false; }
-    
+
     // user exists
     else {
       // get a tweet with correct user
@@ -116,7 +116,7 @@ class TweetServer {
       return true;
     }
   }
-  
+
   /**
    * If either the given username isn't a user in the users list, or the given
    * tweetId isn't a tweet in the tweets list, returns false to indicate no new
@@ -134,24 +134,24 @@ class TweetServer {
    * @return boolean
    */
   boolean quoteTweet(String username, String tweetId, String content, DateTime dt) {
-    
+
     // no user or no quotable tweet ID?
     if(!userExists(username) || !idExists(tweetId)) { return false; }
     // user and tweet both exist
     else {
       // get a tweet with correct user of quoter
       User quoter = tweets.filter(new UserQuery(username)).getTweet().user;
-      
+
       // get tweet to be quoted
       ATweet quoteeTweet = tweets.filter(new IdQuery(tweetId)).getTweet();
-      
+
       // create new quoted tweet
       QuoteTweet newQuote = quoteeTweet.quote(quoter, dt, content);
-      
+
       // add to tweets list
       TweetList temp = new TLLink(newQuote, this.tweets);
       this.tweets = temp;
-      
+
       return true;
     }
   }
@@ -197,7 +197,7 @@ class TweetServer {
     IQuery iq = parse(query);
     return htmlStart + tweets.filter(iq).toHTML() + htmlEnd;
   }
-  
+
   /**
    * Returns an IQuery that represents the given query string.  Note that you will use AndQuery to combine tweets together.
    * The query argument will start with a question mark, and have zero or more instances of key=value following it.  You must handle the case where there are no parts to the query.  Multiple query pieces are always combined with and, never with or.
@@ -207,23 +207,22 @@ class TweetServer {
    * @return IQuery
    */
   IQuery parse(String request) {
-    
     // create final query to be filled
     AndQuery totalQuery = new AndQuery(null, null);
-    
+
     // check if URL is incorrect or consists of just "?"
-    if(request.charAt(0)!='?' || request.equals("?") ) {
+    if(request.charAt(7)!='?' || request.equals("/tweets?") ) {
       return new AllQuery();
     }
     else {
       // split into seperate queries
-      String[] queries = request.substring(1).split("&");
-      
+      String[] queries = request.substring(8).split("&");
+
       // split each "key=value" into keys and values
       for(int i=0; i<queries.length; i+=1) {
         String key = queries[i].split("=")[0];
         String value = queries[i].split("=")[1];
-        
+
         /* For each key, create proper query with search term 'value' and
         stick the new query into the chain of AndQuerys */
         switch (key) {
@@ -236,19 +235,19 @@ class TweetServer {
             int d = Integer.parseInt(dt[0]);
             int m = Integer.parseInt(dt[1]);
             int y = Integer.parseInt(dt[2]);
-            
+
             BeforeQuery bq = new BeforeQuery(new DateTime(d,m,y));
             totalQuery = totalQuery.addQuery(bq);
             break;
           case "contains":
             ContainsQuery cq = new ContainsQuery(value);
-            
+
             // stick the new query into the chain of AndQuerys
             totalQuery = totalQuery.addQuery(cq);
             break;
           case "id":
             IdQuery iq = new IdQuery(value);
-            
+
             // stick the new query into the chain of AndQuerys
             totalQuery = totalQuery.addQuery(iq);
             break;
@@ -262,7 +261,7 @@ class TweetServer {
     }
     else { return totalQuery; }
   }// end parse()
-  
+
   /**
    * Test to see if a tweet with a certain tweetID exists
    *
@@ -270,7 +269,7 @@ class TweetServer {
    * @return boolean
    */
   boolean idExists(String id) {
-    
+
     // create an ID query
     IdQuery iq = new IdQuery(id);
     if(tweets.count(iq) > 0) { return true; }

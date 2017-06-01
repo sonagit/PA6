@@ -71,7 +71,7 @@ class SampleTweets{
   }
 
   TextTweet textTweet1 = new TextTweet(new User("amyhoy","Amy Hoy"),new DateTime(4,14,2017), "home is where the cat is","852984006815731712",2);
-  ImageTweet imageTweet1 = new ImageTweet(new User("amyhoy","Amy Hoy"),new DateTime(4,14,2017), "home is where the cat is","852984006815731712","https://pbs.twimg.com/media/C9ZobpUXkAAi6SV.jpg",100,2);
+  ImageTweet imageTweet1 = new ImageTweet(new User("amyhoy","Amy Hoy"),new DateTime(4,14,2017), "home is where the cat is","852984006815731713","https://pbs.twimg.com/media/C9ZobpUXkAAi6SV.jpg",100,2);
 
 
   TextTweet textTweet2 = new TextTweet(new User("ghc","Grace Hopper(GHC)"),new DateTime(4,4,2017),"The Anita Borg Institute is looking for a new, dynamic CEO. Is someone you really admire perfect for the role? http://bit.ly/2nn9CEV ","849290510049071106",10);

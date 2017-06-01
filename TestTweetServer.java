@@ -26,7 +26,7 @@ class TestTweetServer {
     new User("stubaby", "Baby Stu"),
     new User("thirdTry", "Dunno why")
   };
-  
+
   // test addUser
   boolean testAddUser(Tester t) {
     // create tweet server
@@ -72,20 +72,30 @@ class TestTweetServer {
 
   // test quoteTweet
   boolean testQuoteTweet(Tester t) {
+    // st.textTweet2.quote(this.tl1u[0], new DateTime(2,2,2016),"ew");
+    QuoteTweet qTweet = new QuoteTweet(this.tl1u[0], new DateTime(2,2,2016), "ew", "849290510049071106-rt", st.textTweet2);
+    TweetList tl1Final = new TLLink(qTweet, new TLLink(st.textTweet1, new TLLink(st.textTweet2, new TLEmpty())));
     // create tweet server
     TweetServer ts = new TweetServer(this.stl, this.su);
-    boolean quoteSuccess = ts.quoteTweet("kobebryant", "852984006815731712", "ew", new DateTime(2,2,2016));
-    return  t.checkExpect(quoteSuccess, true);/* &&
-            t.checkExpect(ts., this.su);//*/
+    TweetServer ts1 = new TweetServer(this.tl1, this.tl1u);
+    boolean quoteSuccess1 = ts.quoteTweet("kobebryant", "852984006815731712", "ew", new DateTime(2,2,2016));
+    boolean quoteSuccess2 = ts1.quoteTweet("amyhoy", "849290510049071106", "ew", new DateTime(2,2,2016));
+    boolean quoteSuccess3 = ts1.quoteTweet("kobe", "852984006815731712", "ew", new DateTime(2,2,2016));
+    return  t.checkExpect(quoteSuccess1, true) &&
+            t.checkExpect(quoteSuccess2, true) &&
+            t.checkExpect(quoteSuccess3, false);/* &&
+            t.checkExpect(ts1.tweets, tl1Final);//*/
   }
 
   // test likeTweet
   boolean testLikeTweet(Tester t) {
     // create tweet server
     TweetServer ts = new TweetServer(this.stl, this.su);
+    TweetServer ts1 = new TweetServer(this.tl1, this.tl1u);
     return  t.checkExpect(ts.likeTweet("852984006815731712"), true) &&
-            t.checkExpect(ts.likeTweet("852984"), false);/* &&
-            t.checkExpect(ts., this.su);//*/
+            t.checkExpect(ts1.likeTweet("852984006815731712"), true) &&
+            t.checkExpect(ts.likeTweet("852984"), false) &&
+            t.checkExpect(st.textTweet1.likes, 3);//*/
   }
 
   // test getTweets
@@ -94,14 +104,10 @@ class TestTweetServer {
     TweetServer ts = new TweetServer(this.stl, this.su);
     return  t.checkExpect(ts.getTweets("don't matter"), this.stl) &&
             t.checkExpect(ts.getTweets("/tweets?contains=Kawhi"),
-            new TLLink(this.st.textTweet4, new TLEmpty()));
+            new TLLink(this.st.textTweet4, new TLEmpty()))&&
+            t.checkExpect(ts.getTweets("/tweets?user=android_robin"),
+            new TLLink(this.st.imageTweet4, new TLEmpty()));
   }
-
-  // test getTweetsHTML
-  // create tweet server
-  TweetServer ts = new TweetServer(this.stl, this.su);
-  //System.out.println(ts.getTweetsHTML("whatever"));
-  String html4REAL = ts.getTweetsHTML("whatever");
 
   // test parse
   boolean testParse(Tester t) {
